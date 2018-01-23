@@ -22,8 +22,8 @@ function Game () {
   var directionalLight = new THREE.DirectionalLight( 0xffffff, 1.1);
   directionalLight.position.set( 3, 10, 15);
   this.scene.add( directionalLight );
-  var ambientLight = new THREE.AmbientLight( 0xffffff, 0.3 )
-  this.scene.add( ambientLight )
+  var ambientLight = new THREE.AmbientLight( 0xffffff, 0.3 );
+  this.scene.add( ambientLight );
 
    this.config = {
       // 弹跳体参数设置
@@ -177,7 +177,7 @@ Object.assign(Game.prototype, {
     };
     if (c.x > n.x  || c.z > n.z) {
       self.cameraPos.current.x -= 0.1;
-      self.cameraPos.current.z -= 0.1
+      self.cameraPos.current.z -= 0.1;
       if (self.cameraPos.current.x - self.cameraPos.next.x < 0.05) {
         self.cameraPos.current.x = self.cameraPos.next.x;
       }
@@ -229,6 +229,7 @@ Object.assign(Game.prototype, {
   },
 
   _onMouseUp: function (){
+    var self  = this;
     this.mouseState  = 1;
     if (this.jumper.position.y >= this.config.jumpHeight / 2){
       // jumper还在空中运动
@@ -272,7 +273,6 @@ Object.assign(Game.prototype, {
          this.createCube();
       } else if (type === -2){
         // 落到大地上动画
-        var self  = this;
         (function continuefalling () {
           if (self.jumper.position.y >= -self.config.jumpHeight / 2){
             self.jumper.position.y -= 0.06;
@@ -287,7 +287,6 @@ Object.assign(Game.prototype, {
         }
       } else {
         // 落到边缘处
-        var self = this;
         this.failingAnimation(type);
         if (this.failCallback) {
           setTimeout(function(){
@@ -388,7 +387,12 @@ Object.assign(Game.prototype, {
    */
   getJumpState: function (){
       var jumpR = this.config.jumpBottomRadius;
-      var { d, d1, d2, d3, d4 } = this.getd();
+      var vard = this.getd();
+      var d = vard.d;
+      var d1 = vard.d1;
+      var d2 = vard.d2;
+      var d3 = vard.d3;
+      var d4 = vard.d4;
       if (d <= d1) {
         return 1;
       }  else if (d > d1 && Math.abs(d - d1) <= jumpR) {
@@ -487,7 +491,7 @@ Object.assign(Game.prototype, {
       }
     }
 
-    return {d, d1, d2, d3, d4};
+    return {d: d, d1: d1, d2: d2, d3: d3, d4: d4};
   },
 
   getDirection: function (){

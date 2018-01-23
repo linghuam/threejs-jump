@@ -24,4 +24,4 @@ window.onload = function (){
     restartpage.style.display = 'flex';
     scoreEl.innerHTML = score;
   };
-}
+};
