@@ -6,7 +6,7 @@
 
 [查看Demo](https://linghuam.github.io/threejs-jump/index.html)
 
-![](2.png)
+![效果图](img/2.png)
 
 ## 原理
 
