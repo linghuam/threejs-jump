@@ -2,6 +2,10 @@
 
 用 threejs 模仿微信跳一跳程序
 
+## 效果
+
+[查看Demo](https://linghuam.github.io/threejs-jump/index.html)
+
 ![](2.png)
 
 ## 原理
