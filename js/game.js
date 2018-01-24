@@ -47,6 +47,11 @@ function Game () {
       cubeMaxDis: 4
    };
 
+   this.mouse = {
+     down: this.isPC() ? 'mousedown' : 'touchstart',
+     up: this.isPC() ? 'mouseup' : 'touchend'
+   };
+
    this.cubes = [];
    this.jumper = null;
 
@@ -193,14 +198,14 @@ Object.assign(Game.prototype, {
   },
 
   _registerEvent: function (){
-    this.canvas.addEventListener('mousedown', this._onMouseDown.bind(this));
-    this.canvas.addEventListener('mouseup', this._onMouseUp.bind(this));
+    this.canvas.addEventListener(this.mouse.down, this._onMouseDown.bind(this));
+    this.canvas.addEventListener(this.mouse.up, this._onMouseUp.bind(this));
     window.addEventListener('resize', this._onwindowResize.bind(this), false);
   },
 
   _destoryEvent: function (){
-    this.canvas.removeEventListener('mousedown', this._onMouseDown.bind(this));
-    this.canvas.removeEventListener('mouseup', this._onMouseUp.bind(this));
+    this.canvas.removeEventListener(this.mouse.down, this._onMouseDown.bind(this));
+    this.canvas.removeEventListener(this.mouse.up, this._onMouseUp.bind(this));
     window.removeEventListener('resize', this._onwindowResize.bind(this), false);
 
   },
@@ -509,5 +514,20 @@ Object.assign(Game.prototype, {
     if (isNaN(position.x) || isNaN(position.y) || isNaN(position.z)){
       console.log('position incorrect！');
     }
+  },
+
+ isPC: function() {
+    var userAgentInfo = navigator.userAgent;
+    var Agents = ["Android", "iPhone",
+                "SymbianOS", "Windows Phone",
+                "iPad", "iPod"];
+    var flag = true;
+    for (var v = 0; v < Agents.length; v++) {
+        if (userAgentInfo.indexOf(Agents[v]) > 0) {
+            flag = false;
+            break;
+        }
+    }
+    return flag;
   }
 });
