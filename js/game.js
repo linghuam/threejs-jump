@@ -175,13 +175,13 @@ Object.assign(Game.prototype, {
       y: self.cameraPos.next.y,
       z: self.cameraPos.next.z
     };
-    if (c.x > n.x  || c.z > n.z) {
-      self.cameraPos.current.x -= 0.1;
-      self.cameraPos.current.z -= 0.1;
-      if (self.cameraPos.current.x - self.cameraPos.next.x < 0.05) {
+    if (c.x < n.x || c.z > n.z) {
+      if ( c.x < n.x ) self.cameraPos.current.x += 0.1;
+      if (c.z > n.z) self.cameraPos.current.z -= 0.1;
+      if ( Math.abs(self.cameraPos.current.x - self.cameraPos.next.x) < 0.05) {
         self.cameraPos.current.x = self.cameraPos.next.x;
       }
-      if (self.cameraPos.current.z - self.cameraPos.next.z < 0.05) {
+      if ( Math.abs(self.cameraPos.current.z - self.cameraPos.next.z) < 0.05) {
         self.cameraPos.current.z = self.cameraPos.next.z;
       }
       self.camera.lookAt(new THREE.Vector3(c.x, 0, c.z));
